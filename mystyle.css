@@ -1,0 +1,106 @@
+/* fit the last row so that it fits 
+have a border
+rounded edges for buttons
+colour scheme change */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f2f2f2; /* Light gray background */
+    font-family: 'Arial', sans-serif;
+}
+
+.calculator {
+    width: 320px;
+    background-color: #fff; /* White background for the calculator */
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+} 
+
+.display {
+    background-color: #e0e0e0; /* Light gray background */
+    padding: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+.expression {
+    font-size: 18px;
+    color: #555; /* Dark gray for the expression */
+    text-align: right;
+    min-height: 20px;
+}
+  
+.result {
+    font-size: 32px;
+    color: #000; /* Black for the result */
+    text-align: right;
+    min-height: 40px;
+}
+
+.button-row {
+    display: flex;
+}
+
+button {
+    flex: 1;
+    padding: 20px;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9; /* Light pastel background for buttons */
+    cursor: pointer;
+    outline: none;
+}
+  
+button:hover {
+    background-color: #e6e6e6; /* Slightly darker on hover */
+}
+  
+button:active {
+    background-color: #ccc;
+}
+
+/* Operator buttons */
+button:nth-child(4) {
+    background-color: #ffd1dc; /* Pastel pink */
+}
+  
+button:nth-child(4):hover {
+    background-color: #ffc0cb;
+}
+  
+/* Equals button */
+#equals {
+    background-color: #bae1ff; /* Pastel blue */
+}
+  
+#equals:hover {
+    background-color: #a1d4ff;
+}
+  
+/* Clear and Delete buttons */
+#clear, #delete {
+    background-color: #ffb3ba; /* Pastel red */
+}
+  
+#clear:hover, #delete:hover {
+    background-color: #ff9999;
+}
+
+button {
+    flex: 1;
+    margin: 1px;
+}
+
+/* Make zero button span two columns */
+.button-row:last-child button:first-child {
+    flex: 2;
+}
