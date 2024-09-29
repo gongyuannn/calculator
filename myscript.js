@@ -1,58 +1,49 @@
 // Step 3: Set Up Basic JavaScript
 // Step 4: Display Clicked Numbers
 // Step 5: Handle Operations (e.g., +, -, , /)
-const display = document.querySelector('.result');
+const expressionDisplay = document.querySelector('.expression');
+const resultDisplay = document.querySelector('.result');
 const buttons = document.querySelectorAll('button');
 
-let firstValue = '';
-let secondValue = '';
-let operator = '';
-let result = '';
+let expression = ''; 
 
-function updateDisplay(value) {
-    display.textContent = value;
-  }
+function updateExpressionDisplay(value) {
+    expressionDisplay.textContent = value;
+}
 
-  buttons.forEach(button => {
+buttons.forEach(button => {
     button.addEventListener('click', () => {
-      const value = button.textContent;
+        const value = button.textContent;
   
-      if (!isNaN(value)) {
-        // Handle number input
-        if (!operator) {
-          firstValue += value;
-          updateDisplay(firstValue);
-        } else {
-          secondValue += value;
-          updateDisplay(secondValue);
+      // Handle number and operator input
+         if (!isNaN(value) || ['+', '-', '*', '/', '.'].includes(value)) {
+          expression += value; // Append the clicked button's value to the expression
+          updateExpressionDisplay(expression); // Update the expression display
+      }
+  
+      // Handle Clear button
+        if (value === 'Clear') {
+            expression = ''; // Clear the expression
+            updateExpressionDisplay('0'); // Reset display to 0
+            resultDisplay.textContent = '0'; // Reset result display to 0
+      }
+  
+      // Handle Delete button (deletes the last character)
+        if (value === 'Delete') {
+            expression = expression.slice(0, -1); // Remove the last character
+            updateExpressionDisplay(expression || '0'); // Update display, show 0 if empty
+      }
+  
+      // Handle Equals button (logic for evaluation will go here)
+         if (value === '=') {
+            try {
+            const result = eval(expression); // Evaluate the expression
+             resultDisplay.textContent = result; // Display the result
+            } catch (error) {
+                resultDisplay.textContent = 'OOPS'; // Handle invalid expressions
+            }
         }
-      }
-  
-      // Handle operator input
-      if (['+', '-', '*', '/'].includes(value)) {
-        operator = value;
-      }
-  
-      // Handle equals input
-      if (value === '=') {
-        // Calculate the result
-        console.log('Perform calculation...');
-      }
-  
-      // Handle clear input
-      if (value === 'C') {
-        firstValue = '';
-        secondValue = '';
-        operator = '';
-        result = '';
-        updateDisplay('0');
-      }
-  
-      // Handle delete input
-      if (value === 'DEL') {
-        // Implement delete logic
-      }
-    });
+        });
   });
 
 // Step 8: Handle Edge Cases
