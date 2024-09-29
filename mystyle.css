@@ -15,18 +15,19 @@ body {
 
 .calculator {
     width: 320px;
+    padding: 10px;
     background-color: #d6ccc2; /* White background for the calculator */
     border-radius: 10px;
     border: 2px solid #d5bdaf;
-    
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 } 
 
 .display {
     background-color: #f5ebe0; /* Light gray background */
     padding: 20px;
-    border-radius: 10px 10px 0 0;
-    border-bottom: 2px solid #d5bdaf;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    border: 2px solid #d5bdaf;
   }
   
 .expression {
