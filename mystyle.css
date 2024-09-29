@@ -14,22 +14,24 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f2f2f2; /* Light gray background */
+    background-color: #edede9; /* Light gray background */
     font-family: 'Arial', sans-serif;
 }
 
 .calculator {
     width: 320px;
-    background-color: #fff; /* White background for the calculator */
+    background-color: #d6ccc2; /* White background for the calculator */
     border-radius: 10px;
+    border: 2px solid #d5bdaf;
+    
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 } 
 
 .display {
-    background-color: #e0e0e0; /* Light gray background */
+    background-color: #f5ebe0; /* Light gray background */
     padding: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 2px solid #d5bdaf;
   }
   
 .expression {
@@ -48,59 +50,59 @@ body {
 
 .button-row {
     display: flex;
+    width: 100%; 
 }
 
 button {
     flex: 1;
     padding: 20px;
     font-size: 24px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9; /* Light pastel background for buttons */
+    border: 1px solid #d5bdaf;
+    background-color: #e3d5ca; /* Light pastel background for buttons */
     cursor: pointer;
     outline: none;
+    border-radius: 10px; 
+    margin: 5px; 
 }
   
 button:hover {
-    background-color: #e6e6e6; /* Slightly darker on hover */
+    background-color: #d5bdaf; /* Slightly darker on hover */
 }
   
 button:active {
-    background-color: #ccc;
+    background-color: #d6ccc2;
 }
 
 /* Operator buttons */
-button:nth-child(4) {
-    background-color: #ffd1dc; /* Pastel pink */
+button.operator {
+    background-color: #f5ebe0;
 }
-  
-button:nth-child(4):hover {
-    background-color: #ffc0cb;
+
+button.operator:hover {
+    background-color: #e3d5ca; 
 }
   
 /* Equals button */
 #equals {
-    background-color: #bae1ff; /* Pastel blue */
+    background-color: #f5ebe0; /* Pastel blue */
 }
   
 #equals:hover {
-    background-color: #a1d4ff;
+    background-color: #e3d5ca;
 }
   
 /* Clear and Delete buttons */
 #clear, #delete {
-    background-color: #ffb3ba; /* Pastel red */
+    background-color: #d6ccc2; /* Pastel red */
 }
   
 #clear:hover, #delete:hover {
-    background-color: #ff9999;
+    background-color: #d5bdaf;
 }
 
 button {
     flex: 1;
-    margin: 1px;
-}
-
-/* Make zero button span two columns */
-.button-row:last-child button:first-child {
-    flex: 2;
+    margin: 5px; /* Adjust spacing between buttons */
+    border-radius: 10px; /* Rounded corners for all buttons */
+    border: 2px solid #d5bdaf; /* Softer border around buttons */
 }
