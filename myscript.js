@@ -1,3 +1,8 @@
+// Delete behaviour - debug so that it works properly
+// Modify it such that only one decimal point is allowed to be pressed each time
+// Cuts the decimal points of the evaluated number so it fits into the display
+// Font change to calculator font
+
 const expressionDisplay = document.querySelector('.expression');
 const resultDisplay = document.querySelector('.result');
 const buttons = document.querySelectorAll('button');
@@ -24,7 +29,7 @@ function calculate(first, operator, second) {
       case '*':
         return num1 * num2;
       case '/':
-        return num2 !== 0 ? num1 / num2 : 'OOPS, div by 0';
+        return num2 !== 0 ? num1 / num2 : "OOPS, div by 0";
       default:
         return second;
     }
@@ -40,10 +45,6 @@ buttons.forEach(button => {
             if (awaitingSecondValue) {
                 secondValue += value;
                 updateExpressionDisplay(`${firstValue} ${operator} ${secondValue}`);
-                if (secondValue) {
-                    result = calculate(firstValue, operator, secondValue);
-                    resultDisplay.textContent = result;
-                }
             } else {
                 firstValue += value;
                 updateExpressionDisplay(firstValue);
@@ -51,24 +52,29 @@ buttons.forEach(button => {
         }
 
         // Handle operator input
-        if (['+', '-', '*', '/'].includes(value)) {
+        else if (['+', '-', '*', '/'].includes(value)) {
             if (firstValue && !secondValue) {
                 operator = value;
                 awaitingSecondValue = true; // Now waiting for the second value
                 updateExpressionDisplay(`${firstValue} ${operator}`);
-            } else if (firstValue && secondValue) {
-                // If second number is entered, evaluate first before setting new operator
+            } 
+        }
+
+        // Handle Equals button 
+        else if (value === '=') {
+            if (firstValue && operator && secondValue) {
                 result = calculate(firstValue, operator, secondValue);
+                updateExpressionDisplay(`${firstValue} ${operator} ${secondValue} =`);
                 resultDisplay.textContent = result;
-                firstValue = result.toString(); // Store the result as the new firstValue
+                firstValue = result.toString();
                 secondValue = '';
-                operator = value;
-                updateExpressionDisplay(`${firstValue} ${operator}`);
+                operator = '';
+                awaitingSecondValue = false; 
             }
         }
 
         // Handle Clear button
-        if (value === 'Clear') {
+        else if (value === 'Clear') {
             firstValue = '';
             secondValue = '';
             operator = '';
@@ -79,7 +85,7 @@ buttons.forEach(button => {
         }
 
         // Handle Delete button (delete last digit or operator)
-        if (value === 'Delete') {
+        else if (value === 'Delete') {
             if (awaitingSecondValue && secondValue) {
                 secondValue = secondValue.slice(0, -1);
                 updateExpressionDisplay(`${firstValue} ${operator} ${secondValue || ''}`);
