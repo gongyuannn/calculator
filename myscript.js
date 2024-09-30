@@ -1,4 +1,4 @@
-// Delete behaviour - debug so that it works properly
+// Delete behaviour - debug so that it works properly. first value is based on the result field after deleting
 // Modify it such that only one decimal point is allowed to be pressed each time
 // Cuts the decimal points of the evaluated number so it fits into the display
 // Font change to calculator font
@@ -86,19 +86,17 @@ buttons.forEach(button => {
 
         // Handle Delete button (delete last digit or operator)
         else if (value === 'Delete') {
-            if (awaitingSecondValue && secondValue) {
-                secondValue = secondValue.slice(0, -1);
-                updateExpressionDisplay(`${firstValue} ${operator} ${secondValue || ''}`);
-            } else if (operator) {
-                operator = '';
-                awaitingSecondValue = false;
-                updateExpressionDisplay(firstValue);
-            } else {
-                firstValue = firstValue.slice(0, -1);
-                updateExpressionDisplay(firstValue || '0');
-            }
+            if (resultDisplay.textContent !== '0') {
+                resultDisplay.textContent = resultDisplay.textContent.slice(0, -1) || '0';
+                firstValue = resultDisplay.textContent;
+
+                if (firstValue === '') {
+                    resultDisplay.textContent = '0';
+                    firstValue = '0';
+                }
         }
-    });
+    }
+});
 });
 
 
