@@ -1,7 +1,7 @@
-// Delete behaviour - debug so that it works properly. first value is based on the result field after deleting
-// Modify it such that only one decimal point is allowed to be pressed each time
+// Handle leading zeroes
 // Cuts the decimal points of the evaluated number so it fits into the display
 // Font change to calculator font
+// add keyboard support
 
 const expressionDisplay = document.querySelector('.expression');
 const resultDisplay = document.querySelector('.result');
@@ -15,6 +15,10 @@ let awaitingSecondValue = false;
 
 function updateExpressionDisplay(value) {
     expressionDisplay.textContent = value;
+}
+
+function updateResultDisplay(value) {
+    resultDisplay.textContent = value || '0';
 }
 
 function calculate(first, operator, second) {
@@ -35,19 +39,37 @@ function calculate(first, operator, second) {
     }
 }
 
+function appendValue(currentValue, inputValue) {
+    if (inputValue === '.') {
+        if (currentValue.includes('.')) {
+            // Ignore the input if decimal point already exists
+            return currentValue;
+        } else if (currentValue === '') {
+            return '0.';
+        } else {
+            return currentValue + inputValue;
+        }
+    } else {
+        return currentValue + inputValue;
+    }
+}
+
 // Add event listeners to buttons
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const value = button.textContent;
 
-        // Handle number input
+        // Handle number and decimal input
         if (!isNaN(value) || value === '.') {
             if (awaitingSecondValue) {
-                secondValue += value;
+                // Update secondValue
+                secondValue = appendValue(secondValue, value);
                 updateExpressionDisplay(`${firstValue} ${operator} ${secondValue}`);
+                updateResultDisplay(secondValue);
             } else {
-                firstValue += value;
-                updateExpressionDisplay(firstValue);
+                // Update firstValue
+                firstValue = appendValue(firstValue, value);
+                updateResultDisplay(firstValue);
             }
         }
 
@@ -65,7 +87,7 @@ buttons.forEach(button => {
             if (firstValue && operator && secondValue) {
                 result = calculate(firstValue, operator, secondValue);
                 updateExpressionDisplay(`${firstValue} ${operator} ${secondValue} =`);
-                resultDisplay.textContent = result;
+                updateResultDisplay(result);
                 firstValue = result.toString();
                 secondValue = '';
                 operator = '';
@@ -81,7 +103,7 @@ buttons.forEach(button => {
             result = '';
             awaitingSecondValue = false;
             updateExpressionDisplay('0');
-            resultDisplay.textContent = '0';
+            updateResultDisplay('0');
         }
 
         // Handle Delete button (delete last digit or operator)
