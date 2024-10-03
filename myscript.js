@@ -24,16 +24,17 @@ function calculate(first, operator, second) {
     const num1 = parseFloat(first);
     const num2 = parseFloat(second);
     
+    
     switch (operator) {
       case "+":
-        return (num1 + num2).toFixed(3);
+        return Math.round((num1+num2) * 1000)/1000;
       case "-":
-        return (num1 - num2).toFixed(3);
+        return Math.round((num1-num2) * 1000)/1000;
       case "*":
-        return (num1 * num2).toFixed(3);
+        return Math.round(num1*num2 * 1000)/1000;
       case "/":
-        return (num1 / num2).toFixed(3); 
-
+        return Math.round(num1/num2 * 1000)/1000;
+ 
       default:
         return second;
     }
