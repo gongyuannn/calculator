@@ -3,14 +3,14 @@
 // Font change to calculator font
 // add keyboard support
 
-const expressionDisplay = document.querySelector('.expression');
-const resultDisplay = document.querySelector('.result');
-const buttons = document.querySelectorAll('button');
+const expressionDisplay = document.querySelector(".expression");
+const resultDisplay = document.querySelector(".result");
+const buttons = document.querySelectorAll("button");
 
-let firstValue = ''; 
-let secondValue = ''; 
-let operator = ''; 
-let result = ''; 
+let firstValue = ""; 
+let secondValue = ""; 
+let operator = ""; 
+let result = ""; 
 let awaitingSecondValue = false; 
 
 function updateExpressionDisplay(value) {
@@ -18,7 +18,7 @@ function updateExpressionDisplay(value) {
 }
 
 function updateResultDisplay(value) {
-    resultDisplay.textContent = value || '0';
+    resultDisplay.textContent = value || "0";
 }
 
 function calculate(first, operator, second) {
@@ -26,13 +26,13 @@ function calculate(first, operator, second) {
     const num2 = parseFloat(second);
     
     switch (operator) {
-      case '+':
+      case "+":
         return num1 + num2;
-      case '-':
+      case "-":
         return num1 - num2;
-      case '*':
+      case "*":
         return num1 * num2;
-      case '/':
+      case "/":
         return num2 !== 0 ? num1 / num2 : "OOPS, div by 0";
       default:
         return second;
@@ -40,27 +40,29 @@ function calculate(first, operator, second) {
 }
 
 function appendValue(currentValue, inputValue) {
-    if (inputValue === '.') {
-        if (currentValue.includes('.')) {
+    if (currentValue === "0" && inputValue !== ".") {
+        return inputValue;
+    }
+    
+    if (inputValue === ".") {
+        if (currentValue.includes(".")) {
             // Ignore the input if decimal point already exists
             return currentValue;
-        } else if (currentValue === '') {
-            return '0.';
-        } else {
-            return currentValue + inputValue;
-        }
-    } else {
-        return currentValue + inputValue;
-    }
+        } else if (currentValue === "") {
+            return "0.";
+        } 
+    } 
+
+    return currentValue + inputValue;
 }
 
 // Add event listeners to buttons
 buttons.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener("click", () => {
         const value = button.textContent;
 
         // Handle number and decimal input
-        if (!isNaN(value) || value === '.') {
+        if (!isNaN(value) || value === ".") {
             if (awaitingSecondValue) {
                 // Update secondValue
                 secondValue = appendValue(secondValue, value);
@@ -74,7 +76,7 @@ buttons.forEach(button => {
         }
 
         // Handle operator input
-        else if (['+', '-', '*', '/'].includes(value)) {
+        else if (["+", "-", "*", "/"].includes(value)) {
             if (firstValue && !secondValue) {
                 operator = value;
                 awaitingSecondValue = true; // Now waiting for the second value
@@ -83,38 +85,37 @@ buttons.forEach(button => {
         }
 
         // Handle Equals button 
-        else if (value === '=') {
+        else if (value === "=") {
             if (firstValue && operator && secondValue) {
                 result = calculate(firstValue, operator, secondValue);
                 updateExpressionDisplay(`${firstValue} ${operator} ${secondValue} =`);
                 updateResultDisplay(result);
                 firstValue = result.toString();
-                secondValue = '';
-                operator = '';
+                secondValue = "";
+                operator = "";
                 awaitingSecondValue = false; 
             }
         }
 
         // Handle Clear button
-        else if (value === 'Clear') {
-            firstValue = '';
-            secondValue = '';
-            operator = '';
-            result = '';
+        else if (value === "Clear") {
+            firstValue = "";
+            secondValue = "";
+            operator = "";
+            result = "";
             awaitingSecondValue = false;
-            updateExpressionDisplay('0');
-            updateResultDisplay('0');
+            updateResultDisplay("0");
         }
 
         // Handle Delete button (delete last digit or operator)
-        else if (value === 'Delete') {
-            if (resultDisplay.textContent !== '0') {
-                resultDisplay.textContent = resultDisplay.textContent.slice(0, -1) || '0';
+        else if (value === "Delete") {
+            if (resultDisplay.textContent !== "0") {
+                resultDisplay.textContent = resultDisplay.textContent.slice(0, -1) || "0";
                 firstValue = resultDisplay.textContent;
 
-                if (firstValue === '') {
-                    resultDisplay.textContent = '0';
-                    firstValue = '0';
+                if (firstValue === "") {
+                    resultDisplay.textContent = "0";
+                    firstValue = "0";
                 }
         }
     }
