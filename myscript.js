@@ -1,4 +1,4 @@
-// Handle leading zeroes
+// After error - reset
 // Cuts the decimal points of the evaluated number so it fits into the display
 // Font change to calculator font
 // add keyboard support
@@ -33,7 +33,8 @@ function calculate(first, operator, second) {
       case "*":
         return num1 * num2;
       case "/":
-        return num2 !== 0 ? num1 / num2 : "OOPS, div by 0";
+        return num1 / num2; 
+
       default:
         return second;
     }
@@ -52,7 +53,6 @@ function appendValue(currentValue, inputValue) {
             return "0.";
         } 
     } 
-
     return currentValue + inputValue;
 }
 
@@ -64,14 +64,18 @@ buttons.forEach(button => {
         // Handle number and decimal input
         if (!isNaN(value) || value === ".") {
             if (awaitingSecondValue) {
-                // Update secondValue
+                if (operator === "/" && value === "0") {
+                    alert("OOPS, division by zero is not allowed!");
+                    secondValue = "";
+                    return; 
+                }
                 secondValue = appendValue(secondValue, value);
-                updateExpressionDisplay(`${firstValue} ${operator} ${secondValue}`);
                 updateResultDisplay(secondValue);
             } else {
                 // Update firstValue
                 firstValue = appendValue(firstValue, value);
                 updateResultDisplay(firstValue);
+                updateExpressionDisplay(`${firstValue}`);
             }
         }
 
@@ -104,6 +108,7 @@ buttons.forEach(button => {
             operator = "";
             result = "";
             awaitingSecondValue = false;
+            updateExpressionDisplay("");
             updateResultDisplay("0");
         }
 
@@ -121,10 +126,3 @@ buttons.forEach(button => {
     }
 });
 });
-
-
-// Step 8: Handle Edge Cases
-// Deal with Special Cases:
-// Ensure that the calculator handles edge cases like dividing by zero.
-// Cut off the no. of zeroes
-// Handle multiple operations in a row by resetting values correctly after a calculation.
