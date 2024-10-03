@@ -1,4 +1,3 @@
-// After error - reset
 // Cuts the decimal points of the evaluated number so it fits into the display
 // Font change to calculator font
 // add keyboard support
@@ -27,13 +26,13 @@ function calculate(first, operator, second) {
     
     switch (operator) {
       case "+":
-        return num1 + num2;
+        return (num1 + num2).toFixed(3);
       case "-":
-        return num1 - num2;
+        return (num1 - num2).toFixed(3);
       case "*":
-        return num1 * num2;
+        return (num1 * num2).toFixed(3);
       case "/":
-        return num1 / num2; 
+        return (num1 / num2).toFixed(3); 
 
       default:
         return second;
