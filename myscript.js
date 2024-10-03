@@ -1,4 +1,4 @@
-// Cuts the decimal points of the evaluated number so it fits into the display
+// Cuts the decimal points of the evaluated number so it fits into the display - only if it has multiple decimal points
 // Font change to calculator font
 // add keyboard support
 
