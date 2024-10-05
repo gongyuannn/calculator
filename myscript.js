@@ -1,4 +1,4 @@
-// Font change to calculator font
+// Disable zoom on mobile interface
 // add keyboard support
 
 const expressionDisplay = document.querySelector(".expression");
@@ -10,6 +10,7 @@ let secondValue = "";
 let operator = ""; 
 let result = ""; 
 let awaitingSecondValue = false; 
+let lastTouchTime = 0;
 
 function updateExpressionDisplay(value) {
     expressionDisplay.textContent = value;
@@ -57,6 +58,17 @@ function appendValue(currentValue, inputValue) {
 
 // Add event listeners to buttons
 buttons.forEach(button => {
+    button.addEventListener('touchstart', function (event) {
+        const currentTime = new Date().getTime();
+        const timeDifference = currentTime - lastTouchTime;
+
+        if (timeDifference < 300) {
+            event.preventDefault(); //Prevent zoom on double-tap
+        }
+
+        lastTouchTime = currentTime;
+    }, { passive: false });  
+    
     button.addEventListener("click", () => {
         const value = button.textContent;
 
