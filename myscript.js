@@ -1,4 +1,3 @@
-// Bug = limit to 10 digits
 const expressionDisplay = document.querySelector(".expression");
 const resultDisplay = document.querySelector(".result");
 const buttons = document.querySelectorAll("button");
