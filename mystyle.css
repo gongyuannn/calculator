@@ -38,6 +38,9 @@ body {
     border-radius: 10px;
     border: 2px solid #d5bdaf;
     font-family: "Orbitron", sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
   }
   
 .expression {
