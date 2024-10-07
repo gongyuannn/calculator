@@ -14,17 +14,16 @@ input[type="button"], input[type="submit"], button {
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; 
+    padding: 30px 0;
     background-color: #edede9; /* Light gray background */
     font-family: 'Arial', sans-serif;
 }
 
 .calculator {
-    width: 320px;
+    max-width: 400px;
     padding: 10px;
+    margin: 0 auto;
     background-color: #d6ccc2; /* White background for the calculator */
     border-radius: 10px;
     border: 2px solid #5b5954;
